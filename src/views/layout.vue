@@ -17,20 +17,20 @@
       <el-container>
         <el-aside width="200px">
           <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo"
-            default-active="2" text-color="#fff" router>
+            :default-active="active" text-color="#fff" router>
             <div v-for="item in routerList" :key="item.path">
               <div v-if="item.children">
-                <el-sub-menu >
-                  <template #title>{{item.meta.title}}</template>
-                  
+                <el-sub-menu>
+                  <template #title>{{ item.meta!.title }}</template>
+
                   <el-menu-item v-for="i in item.children" :index="i.path">
-                    {{ i.meta.title }}
+                    {{ i.meta!.title }}
                   </el-menu-item>
                 </el-sub-menu>
               </div>
 
               <el-menu-item v-else :index="item.path">
-                <span>{{ item.meta.title }}</span>
+                <span>{{ item.meta!.title }}</span>
               </el-menu-item>
             </div>
           </el-menu>
@@ -44,20 +44,25 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
-import { useRouter } from "vue-router";
+import { Ref, onMounted, ref } from 'vue';
+import { useRouter, useRoute, RouteRecordRaw } from "vue-router";
+
+const active = ref('');
 
 const router = useRouter();
-const routerList = ref([]);
+const route = useRoute();
+const routerList: Ref<RouteRecordRaw[] | undefined> = ref([]);
 
 onMounted(() => {
+  console.log("route",route);
   let routes = router.options.routes.filter((item) => {
     return item.name == "layout";
   });
 
   routerList.value = routes[0].children;
-  console.log("routerList.value",routerList.value);
-  
+  console.log("routerList.value", routerList.value);
+
+  active.value = route.path;
 
 });
 </script>

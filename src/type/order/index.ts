@@ -4,7 +4,7 @@ export interface ListQueryInt {
   status?: number
 }
 
-export interface ListInt {
+ interface ListInt {
   id: number,
   CreatedAt: string,
   DeletedAt: string,
@@ -24,5 +24,9 @@ export interface ListInt {
   receiver_id: string,
   receiver_phone: string,
   status: number,
+}
+
+export class InitData {
+  list: ListInt[] = []
 }
 

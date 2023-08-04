@@ -16,7 +16,7 @@
       </el-form-item>
     </el-form>
 
-    <el-table :data="list" style="width: 100%">
+    <el-table :data="data.list" style="width: 100%">
     <el-table-column prop="create_by" label="创建人" width="180" />
     <el-table-column prop="" label="商品图标" width="180">
       <template #default="scope">
@@ -34,16 +34,20 @@
 
 <script lang="ts" setup>
 import { reactive, onMounted,ref } from "vue";
-import { listQueryInt,ListInt } from "@/type/order/index";
+import { ListQueryInt,InitData } from "@/type/order/index";
 import { getOrderList } from "@/request/order/index";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 //请求参数
-const listQuery = reactive<listQueryInt>({
+const listQuery = reactive<ListQueryInt>({
   page: 1, size: 10
 });
 
 //代取订单列表
-const list = ref<ListInt>([]);
+// const list = ref<ListInt>([]);
+const data = reactive(new InitData());
 
 //搜索
 const onSubmit = () => {
@@ -61,10 +65,8 @@ const reset = () => {
 
 //获取快递订单列表
 const getList = () => {
-  getOrderList(listQuery).then((respence)=>{
-    console.log("respence",respence);
-    list.value = respence.data.list;
-    console.log("list.value",list.value);
+  getOrderList(listQuery).then((response)=>{
+    data.list = response.data.list;
     
   });
 };
