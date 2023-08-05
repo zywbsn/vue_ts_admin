@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
         // component: () => import('../views/order/index.vue'),
         children: [
           {
-            path: '/list',
+            path: '/order/list',
             name: 'list',
             meta: {
               isShow: true,
@@ -55,8 +55,8 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import('../views/order/list/index.vue'),
           },
           {
-            path: '/list/detail',
-            name: 'list-detail',
+            path: '/order/list/detail',
+            name: 'order-list-detail',
             meta: {
               isShow: false,
               title: "订单详情"

@@ -57,13 +57,12 @@ const data = reactive(new InitData());
 const onSubmit = () => {
   listQuery.page = 1;
   getList();
-
 };
 
 //查看订单 
 const detail = (row:any) => {
   router.push({
-    path:"/list/detail",
+    path:"/order/list/detail",
     query:{
       id:row.ID
     }
