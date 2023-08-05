@@ -27,6 +27,11 @@
     <el-table-column prop="receive_code" label="取货码" />
     <el-table-column prop="code" label="快递单行" />
     <el-table-column prop="status" label="接单状态" />
+    <el-table-column prop="" label="操作" width="180">
+      <template #default="scope">
+        <el-button type="primary" @click="detail(scope.row)">查看订单</el-button>
+      </template>
+    </el-table-column>
   </el-table>
 
   </div>
@@ -46,7 +51,6 @@ const listQuery = reactive<ListQueryInt>({
 });
 
 //代取订单列表
-// const list = ref<ListInt>([]);
 const data = reactive(new InitData());
 
 //搜索
@@ -54,6 +58,16 @@ const onSubmit = () => {
   listQuery.page = 1;
   getList();
 
+};
+
+//查看订单 
+const detail = (row:any) => {
+  router.push({
+    path:"/list/detail",
+    query:{
+      id:row.ID
+    }
+  });
 };
 
 //重置查询条件

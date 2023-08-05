@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -53,17 +53,15 @@ const routes: Array<RouteRecordRaw> = [
               title: "订单列表"
             },
             component: () => import('../views/order/list/index.vue'),
-            children: [
-              {
-                path: '/list/add',
-                name: 'list-add',
-                meta: {
-                  isShow: false,
-                  title: "新增订单"
-                },
-                component: () => import('../views/order/list/add/index.vue'),
-              }
-            ]
+          },
+          {
+            path: '/list/detail',
+            name: 'list-detail',
+            meta: {
+              isShow: false,
+              title: "订单详情"
+            },
+            component: () => import('../views/order/list/detail/index.vue'),
           }
         ]
       }
@@ -81,8 +79,7 @@ const routers = createRouter({
 //全局路由守卫
 routers.beforeEach((to, from, next) => {
   const token: string | null = localStorage.getItem('token')
-  if(to.path != '/login' && !token) {
-    console.log("notoken");
+  if (to.path != '/login' && !token) {
     next('/login');
   } else {
     console.log("token");

@@ -51,16 +51,22 @@ const active = ref('');
 
 const router = useRouter();
 const route = useRoute();
-const routerList: Ref<RouteRecordRaw[] | undefined> = ref([]);
+const routerList: any = ref([]);
 
 onMounted(() => {
-  console.log("route",route);
   let routes = router.options.routes.filter((item) => {
     return item.name == "layout";
   });
 
-  routerList.value = routes[0].children;
-  console.log("routerList.value", routerList.value);
+
+
+
+  routes[0].children?.forEach((item) => {
+    if (item.children) {
+      item.children = item.children.filter((val) => val.meta?.isShow);
+    }
+    routerList.value.push(item);
+  });
 
   active.value = route.path;
 
